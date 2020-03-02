@@ -10,16 +10,24 @@ import (
 
 func Upload(context echo.Context) error{
 	client,_:=config.GetObjectStorageClientConnection()
-	input:=s3.PutObjectInput{
-		Body:               nil,
-		CacheControl:       nil,
-		ContentType:        nil,
-		StorageClass:       nil,
-	}
-	_,err:=client.PutObject(&input)
 
+	file, handler, err := context.Request().FormFile("file")
+	if err != nil {
+		return context.JSON(http.StatusBadRequest,err.Error())
+	}
+	defer file.Close()
+	contentType:="image/png"
+	input:=s3.PutObjectInput{
+		Body:        file,
+		Bucket:      &config.S3Bucket,
+		ContentType: &contentType,
+		Key:         &handler.Filename,
+		Metadata: map[string]*string{},
+
+	}
+	_, err = client.PutObject(&input)
 	if(err!=nil){
-		return context.JSON(http.StatusBadRequest,"Operation failed!")
+		return context.JSON(http.StatusBadRequest,err.Error()+"Operation failed!")
 	}
 	return context.JSON(http.StatusAccepted,"Operation Successful")
 }
