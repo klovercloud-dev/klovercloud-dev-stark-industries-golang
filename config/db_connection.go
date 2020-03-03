@@ -29,10 +29,10 @@ func InitDBCollections() {
 
 func CreateConnectionDB() (*bongo.Connection, error) {
 	config := &bongo.Config{
-		ConnectionString: DatabaseConnectionString,
+		ConnectionString: DatasourceUrl,
 		Database:         DatabaseName,
 	}
-	log.Println(DatabaseConnectionString)
+	log.Println(DatasourceUrl)
 	connection, err := bongo.Connect(config)
 	return connection, err
 }

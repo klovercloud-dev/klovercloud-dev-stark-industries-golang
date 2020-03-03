@@ -2,11 +2,12 @@ package config
 
 import (
 	"github.com/joho/godotenv"
+	"log"
 	"os"
 )
 
 
-var DatabaseConnectionString string
+var DatasourceUrl string
 var DatabaseName string
 var Port string
 var ObjectStorageEndpoint string
@@ -14,10 +15,24 @@ var ObjectStorageSecretKey string
 var ObjectStorageAccessKey string
 var RunMode string
 var S3Bucket string
-func InitEnvironmentVariables() {
-	godotenv.Load()
 
-	DatabaseConnectionString = os.Getenv("DATABASE_CONNECTION_STR")
+func InitEnvironmentVariables() {
+	RunMode = os.Getenv("RUN_MODE")
+	if RunMode == "" {
+		RunMode = DEVELOP
+	}
+
+	log.Println("RUN MODE:", RunMode)
+
+	if RunMode != PRODUCTION  && RunMode != TEST{
+		//Load .env file
+		err := godotenv.Load()
+		if err != nil {
+			log.Println("ERROR:", err.Error())
+			return
+		}
+	}
+	DatasourceUrl = os.Getenv("DATASOURCE_URL")
 	DatabaseName = os.Getenv("DATABASE_NAME")
 	Port=os.Getenv("SERVER_PORT")
 	ObjectStorageEndpoint=os.Getenv("OBJECT_STORAGE_ENDPOINT")
