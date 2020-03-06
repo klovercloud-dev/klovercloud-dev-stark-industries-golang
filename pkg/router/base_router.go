@@ -3,7 +3,7 @@ package router
 import (
 	"github.com/labstack/echo"
 	"github.com/stark-industries/pkg/router/s3"
-	"github.com/stark-industries/pkg/router/staff"
+	"github.com/stark-industries/pkg/router/avenger"
 	"net/http"
 )
 
@@ -17,8 +17,8 @@ func Routes(e *echo.Echo) {
 	s3Monitor := e.Group("/api/v1/s3s")
 	s3.Router(s3Monitor)
 
-	staffMonitor := e.Group("/api/v1/staffs")
-	staff.Router(staffMonitor)
+	avengerMonitor := e.Group("/api/v1/avengers")
+	avenger.Router(avengerMonitor)
 
 }
 

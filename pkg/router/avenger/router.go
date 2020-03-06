@@ -1,4 +1,4 @@
-package staff
+package avenger
 
 import (
 	"github.com/labstack/echo"
@@ -8,7 +8,7 @@ import (
 func Router(g *echo.Group) {
 	g.GET("",apis.FindAll)
 	g.GET("/:id",apis.FindById)
-	g.POST("",apis.SaveStaff)
+	g.POST("",apis.SaveAvenger)
 }
 
 

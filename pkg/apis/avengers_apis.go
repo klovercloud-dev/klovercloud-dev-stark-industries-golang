@@ -2,13 +2,12 @@ package apis
 
 import (
 	"github.com/labstack/echo"
-	"github.com/stark-industries/pkg/entity"
+	"github.com/stark-industries/pkg/avenger"
 	"net/http"
 )
 
-func SaveStaff(context echo.Context) error {
-	//companyId:= context.Param("companyId")
-	formData := new(entity.Staff)
+func SaveAvenger(context echo.Context) error {
+	formData := new(avenger.Avenger)
 	if err := context.Bind(formData); err != nil {
 		return err
 	}
@@ -26,7 +25,7 @@ return context.JSON(http.StatusAccepted,"Operation Successful")
 
 func FindById(context echo.Context) error {
 	id:= context.Param("id")
-	data := new(entity.Staff)
+	data := new(avenger.Avenger)
 	data.Id=id
 	staff:=data.FindById()
 	return context.JSON(http.StatusAccepted,staff)
@@ -34,7 +33,7 @@ func FindById(context echo.Context) error {
 }
 
 func FindAll(context echo.Context) error {
-	data := new(entity.Staff)
+	data := new(avenger.Avenger)
 	staff:=data.FindAll()
 	return context.JSON(http.StatusAccepted,staff)
 

@@ -9,7 +9,7 @@ import (
 )
 
 var connectDB *bongo.Connection
-var Staff *bongo.Collection
+var Avenger *bongo.Collection
 
 // Connect Database
 func InitDBConnection() {
@@ -24,7 +24,7 @@ func InitDBConnection() {
 
 // Initialize Database Collections
 func InitDBCollections() {
-	Staff = connectDB.Collection("staffs")
+	Avenger = connectDB.Collection("staffs")
 }
 
 func CreateConnectionDB() (*bongo.Connection, error) {
